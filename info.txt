@@ -1,0 +1,51 @@
+Hey Bernd,
+
+also das müsste es gewsen sein, wenn Du das ausgeschcekct hast, und intelliJ verwendest, sollte eh schon alles passen und Du musst (nachdem IntelliJ alles geindexed hat und os) einfach Play drücken rechts oben.
+ACHTUNG! VOrher Mongo DB Runterladen und installieren, auf dem Default Port lassen
+
+Wenns startet dann solltest Du wenn Du Dich bei Postman registriert hast (oder auch so)? unter diesem Link die drei Requests: Create, FindAll, und FindFuzzy schon fertig haben.
+https://www.getpostman.com/collections/4fdecfb5a7dd878f79eb. Sonst sind sie hier weiter unten
+
+Aber schätze wir quatschen eh bald, oder haben schon..
+
+lG!
+
+Alle Requests sind POSTS auf auf "localhost:8080/apis/graphql"
+
+Im Body folgendes JSON (Postman hat übrigens eine GraphQL Syntax highlighter beim Body Tab)
+
+Person erstellen:
+mutation {
+  createPerson(
+    firstname: "Bernd",
+    lastname: "Steurer",
+    email: ["bernd@owki.io", "bernd@c-change.eu"]) {
+      id firstname lastname email
+  }
+}
+
+Find all:
+query {
+  findAllPersons {
+    id
+    lastname
+    firstname
+    email
+    phone
+    dateCreated
+  }
+}
+
+Find Fuzzy:
+query {
+  findFuzzyWholeName(namePart:"eur") {
+    id
+    lastname
+    firstname
+    email
+    phone
+    dateCreated
+  }
+}
+
+

@@ -1,0 +1,22 @@
+type Person {
+	id: ID!
+	lastname: String!
+	firstname: String!
+	birthdate: String
+	dateCreated: String
+    email: [String]
+    phone: [String]
+}
+
+# Root
+type Query {
+	findAllPersons: [Person]!
+	findFuzzyWholeName(namePart: String): [Person]!
+	countPersons: Int!
+}
+
+# Root
+type Mutation {
+	createPerson(lastname: String!, firstname: String!, birthdate: String, email: [String], phone: [String]): Person!
+}
+
