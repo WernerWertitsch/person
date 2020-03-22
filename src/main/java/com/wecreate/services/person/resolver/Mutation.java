@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 @Component
 public class Mutation implements GraphQLMutationResolver {
 
+    public static final String INCOMING_DATE_FORMAT = "yyyy-MM-dd hh:mm";
+
     Logger logger = Logger.getLogger(Mutation.class.getName());
 
     @Autowired
@@ -30,7 +32,7 @@ public class Mutation implements GraphQLMutationResolver {
         ret.setDateCreated(new Date());
         try {
             if(birthDate!=null) {
-                ret.setBirthdate(new SimpleDateFormat(Person.DATE_FORMAT).parse(birthDate));
+                ret.setBirthdate(new SimpleDateFormat(INCOMING_DATE_FORMAT).parse(birthDate));
             }
         } catch (ParseException e) {
             logger.warning(String.format("Could not parse Date %s, for new Person %s %s - not setting birthdate", birthDate, lastname, firstname));

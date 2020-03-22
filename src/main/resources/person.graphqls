@@ -13,10 +13,12 @@ type Query {
 	findAllPersons: [Person]!
 	findFuzzyWholeName(namePart: String): [Person]!
 	countPersons: Int!
+	findByLastNameAndCreatedAtAfter(lastname: String!, dateCreatedAfter: String!): [Person]!
 }
 
 # Root
 type Mutation {
 	createPerson(lastname: String!, firstname: String!, birthdate: String, email: [String], phone: [String]): Person!
+	deletePerson(id: ID!): Boolean
 }
 

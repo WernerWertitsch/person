@@ -6,6 +6,10 @@ import com.wecreate.services.person.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class Query implements GraphQLQueryResolver {
 
@@ -24,5 +28,12 @@ public class Query implements GraphQLQueryResolver {
     public Iterable<Person> findFuzzyWholeName(String namePart) {
         return this.personRepository.findPeopleByFirstnameContainsOrLastnameContains(namePart, namePart);
     }
+
+    public Iterable<Person> findByLastNameAndCreatedAtAfter(String lastname, String dateCreatedAfter) throws ParseException {
+        Date dateObj = new SimpleDateFormat(Mutation.INCOMING_DATE_FORMAT).parse(dateCreatedAfter);
+        return this.personRepository.findPeopleByLastnameAndDateCreatedAfter(lastname, dateObj);
+    }
+
+
 
 }

@@ -10,8 +10,6 @@ import java.util.List;
 @Document(collection = "persons")
 public class Person {
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-
     @Id
     String id;
     String lastname;
