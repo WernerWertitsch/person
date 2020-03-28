@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
 public class Mutation implements GraphQLMutationResolver {
 
     public static final String INCOMING_DATE_FORMAT = "yyyy-MM-dd hh:mm";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(INCOMING_DATE_FORMAT);
 
     Logger logger = Logger.getLogger(Mutation.class.getName());
 
@@ -29,12 +32,12 @@ public class Mutation implements GraphQLMutationResolver {
         Person ret = new Person();
         ret.setLastname(lastname);
         ret.setFirstname(firstname);
-        ret.setDateCreated(new Date());
+        ret.setDateCreated(LocalDate.now());
         try {
             if(birthDate!=null) {
-                ret.setBirthdate(new SimpleDateFormat(INCOMING_DATE_FORMAT).parse(birthDate));
+                ret.setBirthdate(LocalDate.parse(birthDate, formatter));
             }
-        } catch (ParseException e) {
+        } catch (Exception e) {
             logger.warning(String.format("Could not parse Date %s, for new Person %s %s - not setting birthdate", birthDate, lastname, firstname));
             e.printStackTrace();
         }
