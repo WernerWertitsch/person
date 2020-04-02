@@ -1,6 +1,7 @@
 package com.wecreate.services.person.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.wecreate.services.person.model.BulkPersonInput;
 import com.wecreate.services.person.model.Person;
 import com.wecreate.services.person.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -46,6 +48,16 @@ public class Mutation implements GraphQLMutationResolver {
         this.personRepository.save(ret);
         return ret;
     }
+
+    public List<Person> createPersons(BulkPersonInput persons) {
+        final List<Person> ret = new ArrayList<>();
+        persons.getPersons().forEach(p -> {
+            Person person = createPerson(p.getLastname(), p.getFirstname(), p.getBirthdate(), p.getEmail(), p.getPhone());
+            ret.add(person);
+        });
+        return ret;
+    }
+
 
     public boolean deletePerson(String id) {
         this.personRepository.deleteById(id);

@@ -8,6 +8,18 @@ type Person {
     phone: [String]
 }
 
+input PersonInput {
+	lastname: String!
+	firstname: String!
+	birthdate: String
+	email: [String]
+	phone: [String]
+}
+
+input BulkPersonInput {
+	persons: [PersonInput!]!
+}
+
 # Root
 type Query {
 	findAllPersons: [Person]!
@@ -19,6 +31,7 @@ type Query {
 # Root
 type Mutation {
 	createPerson(lastname: String!, firstname: String!, birthdate: String, email: [String], phone: [String]): Person!
+	createPersons(input: BulkPersonInput): [Person]
 	deletePerson(id: ID!): Boolean
 }
 
