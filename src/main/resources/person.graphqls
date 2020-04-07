@@ -20,10 +20,29 @@ input BulkPersonInput {
 	persons: [PersonInput!]!
 }
 
+
+type Paging {
+	page: Int!
+	pageSize: Int!
+	hasMore: Boolean
+	total: Int!
+}
+
+
+input PagingInput {
+	page: Int! = 0
+	pageSize: Int! = 20
+}
+
+type Persons {
+	data: [Person]!
+	paging: Paging
+}
+
 # Root
 type Query {
-	findAllPersons: [Person]!
-	findFuzzyWholeName(namePart: String): [Person]!
+	findAllPersons(paging: PagingInput): [Person]!
+	findFuzzyWholeName(namePart: String, paging: PagingInput): [Person]!
 	countPersons: Int!
 	findByLastNameAndCreatedAtAfter(lastname: String!, dateCreatedAfter: String!): [Person]!
 }
