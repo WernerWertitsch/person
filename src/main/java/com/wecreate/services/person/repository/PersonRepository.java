@@ -1,6 +1,9 @@
 package com.wecreate.services.person.repository;
 
 import com.wecreate.services.person.model.Person;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -15,5 +18,10 @@ import java.util.Date;
 public interface PersonRepository extends MongoRepository<Person, String> {
 
     @RestResource(path="/fuzzy")
-    public Iterable<Person> findPeopleByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(@Param(value = "n1") String firstname, @Param(value="n2") String lastName);
+    public Page<Person>
+    findPeopleByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(
+            @Param(value = "n1") String firstname,
+            @Param(value="n2") String lastName,
+            Pageable pageable);
+
 }
