@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
